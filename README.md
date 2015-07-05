@@ -1,6 +1,8 @@
 # grestful
 A simple RESTful API client written in GTK 3.
 
+![Screenshot](https://raw.githubusercontent.com/hotoiledgoblinsack/grestful/gh-pages/Example.png)
+
 #### Building
 grestful is written in D and GTK 3 using the GtkD wrapper. Installing all the dependencies manually is not necessary as dub will handle building a local version of them for you. All you need is a D compiler with a standard library (DMD, GDC or LDC) and the dub build tool. To build, issue to following command:
 
