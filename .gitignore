@@ -1,0 +1,6 @@
+*.userprefs
+.dub
+dub_platform_probe.o
+dub.selections.json
+grestful
+*.a

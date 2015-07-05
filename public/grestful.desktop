@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=grestful
+GenericName=API Tester
+Exec=grestful
+Icon=applications-development
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GTK;Utility;
+Keywords=api;tester;testing;restful;request;
