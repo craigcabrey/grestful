@@ -7,6 +7,6 @@
     "importPaths": ["."],
 
     "dependencies": {
-        "gtk-d:gtkd": ">=3.1.0"
+        "gtk-d:gtkd": "~>3.1.0"
     }
 }
