@@ -95,8 +95,8 @@ protected:
      */
     ObjectG[string] objectCache;
 
-	/**
-	 * The builder object containing usable to fetch widgets that were created as per the (GtkBuilder) file fed to it.
-	 */
-	gtk.Builder.Builder builder;
+    /**
+     * The builder object containing usable to fetch widgets that were created as per the (GtkBuilder) file fed to it.
+     */
+    gtk.Builder.Builder builder;
 }

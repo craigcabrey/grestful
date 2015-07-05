@@ -8,7 +8,7 @@ import gtk.TextIter;
 import gtk.TextMark;
 import gtk.TextBuffer;
 
-/** 
+/**
  * Mixin template that allows conveniently restoring the current selection and cursor by using marks that maintain
  * their location by using the specified gravity.
  */

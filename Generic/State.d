@@ -49,45 +49,45 @@ public:
         this.listeners ~= object;
     }
 
-	/**
-	 * Reads previously saved state from the existing file.
-	 */
-	void load()
-	{
+    /**
+     * Reads previously saved state from the existing file.
+     */
+    void load()
+    {
         KeyFile keyFile = new KeyFile();
 
         if (!exists(this.ConfigDirectory))
             mkdirRecurse(this.ConfigDirectory);
 
-		if (exists(this.ConfigFile) && !keyFile.loadFromFile(ConfigFile, GKeyFileFlags.KEEP_COMMENTS))
-    		throw new Exception("Couldn't load state from " ~ this.ConfigFile ~ "! It may be corrupt or unreadable!");
+        if (exists(this.ConfigFile) && !keyFile.loadFromFile(ConfigFile, GKeyFileFlags.KEEP_COMMENTS))
+            throw new Exception("Couldn't load state from " ~ this.ConfigFile ~ "! It may be corrupt or unreadable!");
 
-		foreach (listener; this.listeners)
-			listener.loadState(keyFile, null);
-	}
+        foreach (listener; this.listeners)
+            listener.loadState(keyFile, null);
+    }
 
-	/**
-	 * Writes application state to the config directory.
-	 */
-	void save()
-	{
-		KeyFile keyFile = new KeyFile();
+    /**
+     * Writes application state to the config directory.
+     */
+    void save()
+    {
+        KeyFile keyFile = new KeyFile();
 
-		foreach (listener; this.listeners)
-			listener.saveState(keyFile, null);
+        foreach (listener; this.listeners)
+            listener.saveState(keyFile, null);
 
-		// Write the actual file. Note that the directory is already created in the loader.
-		try
-		{
+        // Write the actual file. Note that the directory is already created in the loader.
+        try
+        {
             size_t ignore;
-			std.file.write(this.ConfigFile, keyFile.toData(ignore));
-		}
+            std.file.write(this.ConfigFile, keyFile.toData(ignore));
+        }
 
-		catch(FileException e)
-		{
+        catch(FileException e)
+        {
             throw new Exception("Couldn't save state to " ~ this.ConfigFile ~ "! It may be unwritable!");
-		}
-	}
+        }
+    }
 
 private:
     /**
@@ -99,10 +99,10 @@ private:
     }
 
 private:
-	/**
-	 * A list of objects that listen to state saving and loading.
-	 */
-	StateAwareInterface[] listeners;
+    /**
+     * A list of objects that listen to state saving and loading.
+     */
+    StateAwareInterface[] listeners;
 
     /**
      * The directory to write and read the state file to.

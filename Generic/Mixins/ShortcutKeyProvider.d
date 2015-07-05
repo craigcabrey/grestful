@@ -37,7 +37,7 @@ protected:
                 {
                     uint bindingKey;
                     GdkModifierType bindingMods;
-                    
+
                     import gtk.AccelGroup;
 
                     AccelGroup.acceleratorParse(

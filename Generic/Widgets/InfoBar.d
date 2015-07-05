@@ -18,19 +18,19 @@ import Generic.Widgets.BarInterface;
 class InfoBar : gtk.InfoBar.InfoBar, BarInterface
 {
 public:
-	/**
-	 * Constructor.
-	 */
-	this()
-	{
-		this.setShowCloseButton(true);
-		this.message = new Label("");
+    /**
+     * Constructor.
+     */
+    this()
+    {
+        this.setShowCloseButton(true);
+        this.message = new Label("");
 
         this.setNoShowAll(true);
-		this.addOnResponse(&onWidgetClicked);
+        this.addOnResponse(&onWidgetClicked);
 
-		this.getContentArea().add(this.message);
-	}
+        this.getContentArea().add(this.message);
+    }
 
 public:
     @property
@@ -57,16 +57,16 @@ public:
     }
 
 public:
-	/**
-	 * Shows a message in the info bar with the specified message and type.
-	 */
-	void showMessage(string message, MessageType type = MessageType.ERROR)
-	{
-		this.message.setText(message);
-		this.setMessageType(type);
+    /**
+     * Shows a message in the info bar with the specified message and type.
+     */
+    void showMessage(string message, MessageType type = MessageType.ERROR)
+    {
+        this.message.setText(message);
+        this.setMessageType(type);
 
         this.open();
-	}
+    }
 
 public:
     /**
@@ -92,19 +92,18 @@ public:
     }
 
 private:
-	/**
-	 * Called when one of the action widgets in the infobar was clicked.
-	 */
-	void onWidgetClicked(int responseId, gtk.InfoBar.InfoBar sender)
-	{
-		if (responseId == ResponseType.CLOSE)
-			sender.hide();
-	}
+    /**
+     * Called when one of the action widgets in the infobar was clicked.
+     */
+    void onWidgetClicked(int responseId, gtk.InfoBar.InfoBar sender)
+    {
+        if (responseId == ResponseType.CLOSE)
+            sender.hide();
+    }
 
 private:
-	/**
-	 * The message displayed in the infobar.
-	 */
-	Label message;
+    /**
+     * The message displayed in the infobar.
+     */
+    Label message;
 }
-
