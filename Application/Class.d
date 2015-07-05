@@ -183,16 +183,16 @@ private:
         this.installAppMenu();
     }
 
-	/**
-	 * Called when the application is activated. i.e. when it is started by normal means (without any files to open),
+    /**
+     * Called when the application is activated. i.e. when it is started by normal means (without any files to open),
      * thus not when opening files through the file browser or via the command line.
-	 */
-	void onActivate(gio.Application.Application app)
-	{
-		this.mainWindow = new MainWindow(this);
+     */
+    void onActivate(gio.Application.Application app)
+    {
+        this.mainWindow = new MainWindow(this);
 
         this.mainWindow.Widget.showAll();
-	}
+    }
 
     /**
      * Shows the about dialog.
@@ -229,21 +229,21 @@ private:
         }
     }
 
-	/**
-	 * Installs the application menu. This is the menu that drops down in gnome-shell when you click the application
-	 * name next to Activities.
-	 */
-	void installAppMenu()
-	{
+    /**
+     * Installs the application menu. This is the menu that drops down in gnome-shell when you click the application
+     * name next to Activities.
+     */
+    void installAppMenu()
+    {
         Menu menu;
 
-		this.registerAction("app.about", null, delegate(Variant, SimpleAction) {
-			this.showAboutDialog();
-		});
+        this.registerAction("app.about", null, delegate(Variant, SimpleAction) {
+            this.showAboutDialog();
+        });
 
         this.registerAction("app.quit", null, delegate(Variant, SimpleAction) {
-			this.mainWindow.Widget.close();
-		});
+            this.mainWindow.Widget.close();
+        });
 
         this.registerAction("app.select-style-scheme", null, delegate(Variant, SimpleAction) {
             auto styleSchemeChooserDialog = new StyleSchemeChooserDialog(this);
@@ -260,7 +260,7 @@ private:
 
                 present();
             }
-		});
+        });
 
         with (menu = new Menu())
         {
@@ -269,14 +269,14 @@ private:
             append(_("_Quit"), "app.quit");
         }
 
-		this.setAppMenu(menu);
-	}
+        this.setAppMenu(menu);
+    }
 
 private:
-	/**
-	 * The main application window.
-	 */
-	MainWindow mainWindow;
+    /**
+     * The main application window.
+     */
+    MainWindow mainWindow;
 
     /**
      * Maps actions registered to the application by their action name.
