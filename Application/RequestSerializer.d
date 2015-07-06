@@ -10,7 +10,7 @@ import Generic.Request;
 import Generic.Utility;
 
 /**
- * @todo
+ * Handles serializing and unserializing request objects to and from a (Glib) KeyFile.
  */
 class RequestSerializer
 {
