@@ -15,6 +15,13 @@ This will automatically fetch the correct dependencies, build them and finally b
 ##### Installation
 There is no installation script available (and dub doesn't handle this). Installation is as simple as moving the executable to a binary folder such as /usr/bin and installing the contents of the `design` folder to `/usr/share/grestful/design/`. There is also a `.desktop` file present that you can put in `/usr/share/applications` if desired.
 
+##### Running
+As grestful is based on GTK, you will need (at least) the following libraries:
+  * GTK >= 3.16
+  * GtkSourceView
+  * cURL libraries.
+  * Phobos (runtime) library
+
 ##### FAQ
 ###### What shortcuts are available?
 The following shortcuts may or may not be immediately clear:
