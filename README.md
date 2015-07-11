@@ -19,7 +19,7 @@ There is no installation script available (and dub doesn't handle this). Install
 As grestful is based on GTK, you will need (at least) the following libraries:
   * GTK >= 3.16
   * GtkSourceView
-  * cURL libraries.
+  * cURL libraries
   * Phobos (runtime) library
 
 ##### FAQ
