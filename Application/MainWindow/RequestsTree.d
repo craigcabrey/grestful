@@ -33,6 +33,9 @@ public:
 public:
     /**
      * Constructor.
+     *
+     * @param builder The builder to use that has the definition file containing the tree loaded.
+     * @param id      The ID of the widget in the builder definition file.
      */
     this(gtk.Builder.Builder builder, string id)
     {
@@ -44,15 +47,23 @@ public:
 public:
     @property
     {
+        /**
+         * Retrieves the store.
+         *
+         * @return The store.
+         */
         TreeStore Store()
         {
             return cast(TreeStore) this.Widget.getModel();
         }
 
-        // FIXME: Bug in the DMD compiler? Parent uses template parameter as return type but 'gtk.Widget.Widget' is
-        // still selected instead when using the class.
+        /**
+         * @copydoc Buildable::Widget
+         */
         override TreeView Widget()
         {
+            // FIXME: Bug in the DMD compiler? Parent uses template parameter as return type but 'gtk.Widget.Widget' is
+            // still selected instead when using the class.
             return cast(TreeView) super.Widget;
         }
     }
@@ -60,6 +71,8 @@ public:
 public:
     /**
      * Starts editing the specified node.
+     *
+     * @param node The node to start editing.
      */
     void startNameEditor(TreeIter node)
     {
@@ -76,6 +89,13 @@ public:
     /**
      * Adds a new request to the tree with the specified name and value for the index column and returns an iterator to
      * it.
+     *
+     * @param name   The name (display text) of the node to add.
+     * @param method The HTTP method to display.
+     * @param index  The value to set for the index column.
+     * @param parent The parent node to attach the newly created node to, if any.
+     *
+     * @return An iterator to the newly created node.
      */
     TreeIter addNode(string name, string method, int index, TreeIter parent = null)
     {
@@ -93,6 +113,10 @@ public:
 
     /**
      * Updates a node's name and/or method. The parameters can be nulled to ignore them.
+     *
+     * @param iter   The node to update.
+     * @param name   The new name to give to the node.
+     * @param method The new method to give to the node.
      */
     void updateNode(TreeIter iter, string name, string method)
     {
@@ -108,6 +132,10 @@ public:
 public:
     /**
      * Emits a signal to delete an item from the tree.
+     *
+     * @param e The raw event that was sent.
+     *
+     * @return Whether or not the event should propagate.
      */
     @Shortcut("Delete") bool requestDelete(Event e)
     {
@@ -118,7 +146,11 @@ public:
     }
 
     /**
-     * Renames the curerntly selected row.
+     * Renames the currently selected row.
+     *
+     * @param e The raw event that was sent.
+     *
+     * @return Whether or not the event should propagate.
      */
     @Shortcut("F2") @Shortcut("<Control>R") bool renameSelectedRow(Event e)
     {
@@ -130,6 +162,10 @@ public:
 
     /**
      * Collapses the currently selected node.
+     *
+     * @param e The raw event that was sent.
+     *
+     * @return Whether or not the event should propagate.
      */
     @Shortcut("Left") bool collapseNode(Event e)
     {
@@ -141,6 +177,10 @@ public:
 
     /**
      * Expands the currently selected node.
+     *
+     * @param e The raw event that was sent.
+     *
+     * @return Whether or not the event should propagate.
      */
     @Shortcut("Right") bool expandNode(Event e)
     {
@@ -178,8 +218,12 @@ protected:
 
     /**
      * Called when a node is activated (i.e. clicked in the context of this tree).
+     *
+     * @param nodePath The path to the node that was activated.
+     * @param column   The column that was activated.
+     * @param treeView The tree view containing the node that was activated.
      */
-    void onRowActivated(TreePath nodePath, TreeViewColumn, TreeView treeView)
+    void onRowActivated(TreePath nodePath, TreeViewColumn column, TreeView treeView)
     {
         if (auto iter = this.Widget.getSelectedIter())
             this.activateRequestedSignal.send(this, iter);

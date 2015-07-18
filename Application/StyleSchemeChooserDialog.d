@@ -27,6 +27,8 @@ public:
 public:
     /**
      * Constructor.
+     *
+     * @param application Application instance.
      */
     this(ApplicationClass application)
     {

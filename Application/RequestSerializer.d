@@ -17,6 +17,8 @@ class RequestSerializer
 public:
     /**
      * Constructor.
+     *
+     * @param file The file to use for (un)serializing.
      */
     this(KeyFile file)
     {
@@ -26,11 +28,21 @@ public:
 public:
     @property
     {
+        /**
+         * Retrieves the file used for (un)serializing.
+         *
+         * @return The file used.
+         */
         KeyFile File()
         {
             return this.file;
         }
 
+        /**
+         * Sets the file used for (un)serializing.
+         *
+         * @param file The file to use.
+         */
         void File(KeyFile file)
         {
             this.file = file;
@@ -40,6 +52,10 @@ public:
 public:
     /**
      * Serializes the specified request to the configured file.
+     *
+     * @param request   The request to serialize.
+     * @param name      The name of the request.
+     * @param groupName The group name to save the data under (in the key file).
      */
     void serialize(Request request, string name, string groupName)
     {
@@ -66,6 +82,11 @@ public:
 
     /**
      * Unserializes a request from the configured file into the passed object. Returns the name of the request.
+     *
+     * @param request   The object to save the unserialized data in.
+     * @param groupName The group name to read the data from (in the key file).
+     *
+     * @return The name of the unserialized request.
      */
     string unserialize(Request request, string groupName)
     {

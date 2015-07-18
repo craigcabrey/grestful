@@ -15,6 +15,10 @@ import Application.Utility;
 
 /**
  * Application entry point.
+ *
+ * @param args The arguments passed to the application.
+ *
+ * @return The status code to return to the invoker.
  */
 int main(string[] args)
 {

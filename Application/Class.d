@@ -84,9 +84,7 @@ public:
 
 public:
     /**
-     * {@inheritDoc}.
-     *
-     * Realizes functionality from {@see StateAwareInterface}.
+     * @copydoc StateAwareInterface
      */
     void loadState(KeyFile file, string groupName)
     {
@@ -106,9 +104,7 @@ public:
     }
 
     /**
-     * {@inheritDoc}.
-     *
-     * Realizes functionality from {@see StateAwareInterface}.
+     * @copydoc StateAwareInterface
      */
     void saveState(KeyFile file, string groupName)
     {
@@ -121,6 +117,10 @@ public:
     /**
      * Retrieves the action with the specified name. The action must exist. If an attempt is made to fetch a
      * non-existing action, it is a programmatic error and it will be caught by an assert in debug mode.
+     *
+     * @param name The name of the action to retrieve.
+     *
+     * @return The action (which must exist or the method will fail).
      */
     SimpleAction getAction(string name)
     {
@@ -130,6 +130,9 @@ public:
 
     /**
      * Convenience function to quickly set an action as enabled or disabled.
+     *
+     * @param name    The name of the action.
+     * @param enabled Whether to enable the action or not.
      */
     void setActionEnabled(string name, bool enabled)
     {
@@ -140,15 +143,15 @@ public:
      * Adds a new action to the specified menu. An action is automatically added to the application that invokes the
      * specified callback when the actual menu item is activated.
      *
-     * @param string      id                   The ID to give to the action. This can be used in other places to refer
-     *                                         to the action by a string. Must always start with "app.".
-     * @param string      accelerator          The (application wide) keyboard accelerator to activate the action.
-     * @param delegate    callback             The callback to invoke when the action is invoked.
-     * @param VariantType type                 The type of data passed as parameter to the action when activated.
-     * @param Variant     acceleratorParameter The parameter to pass to the callback when the action is invoked by its
-     *                                         accelerator.
+     * @param id                   The ID to give to the action. This can be used in other places to refer to the action
+     *                             by a string. Must always start with "app.".
+     * @param accelerator          The (application wide) keyboard accelerator to activate the action.
+     * @param callback             The callback to invoke when the action is invoked.
+     * @param type                 The type of data passed as parameter to the action when activated.
+     * @param acceleratorParameter The parameter to pass to the callback when the action is invoked by its
+     *                             accelerator.
      *
-     * @return SimpleAction The registered action.
+     * @return The registered action.
      */
     SimpleAction registerAction(
         string id,
@@ -177,6 +180,8 @@ private:
     /**
      * Called when the application needs to start up. This happens in all cases when the application is "started", thus
      * also when the user wants to open files with the application.
+     *
+     * @param app The application object.
      */
     void onStartup(gio.Application.Application app)
     {
@@ -186,6 +191,8 @@ private:
     /**
      * Called when the application is activated. i.e. when it is started by normal means (without any files to open),
      * thus not when opening files through the file browser or via the command line.
+     *
+     * @param app The application object.
      */
     void onActivate(gio.Application.Application app)
     {

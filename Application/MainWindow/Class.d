@@ -56,6 +56,8 @@ class Class : Buildable!ApplicationWindow, StateAwareInterface
 public:
     /**
      * Constructor.
+     *
+     * @param application Application instance.
      */
     this(ApplicationClass application)
     {
@@ -75,6 +77,11 @@ public:
 public:
     @property
     {
+        /**
+         * Retrieves the active style scheme used by the response and result source views.
+         *
+         * @return The style scheme.
+         */
         SourceStyleScheme StyleScheme()
         {
             auto dataSourceView = this.getWidget!SourceView("dataSourceView");
@@ -82,6 +89,11 @@ public:
             return dataSourceView.getBuffer().getStyleScheme();
         }
 
+        /**
+         * Sets the style scheme to use for the response and result source views.
+         *
+         * @param scheme The scheme to use.
+         */
         void StyleScheme(SourceStyleScheme scheme)
         {
             auto dataSourceView = this.getWidget!SourceView("dataSourceView");
@@ -94,9 +106,7 @@ public:
 
 public:
     /**
-     * {@inheritDoc}.
-     *
-     * Realizes functionality from {@see StateAwareInterface}.
+     * @copydoc StateAwareInterface
      */
     void loadState(KeyFile file, string groupName)
     {
@@ -154,9 +164,7 @@ public:
     }
 
     /**
-     * {@inheritDoc}.
-     *
-     * Realizes functionality from {@see StateAwareInterface}.
+     * @copydoc StateAwareInterface
      */
     void saveState(KeyFile file, string groupName)
     {
@@ -634,6 +642,8 @@ protected:
     /**
      * Saves the settings of the currently active request to be accessible as a new node in the request tree under the
      * specified name.
+     *
+     * @param name The name to give the new request.
      */
     void saveCurrentRequestAsNew(string name)
     {
@@ -648,6 +658,11 @@ protected:
 
     /**
      * Adds a new request header row to the request header view with the specified values.
+     *
+     * @param name  The name of the header.
+     * @param value The value fo the haeder.
+     *
+     * @return An iterator to the newly added row.
      */
     TreeIter addRequestHeaderRow(string name = null, string value = null)
     {
@@ -680,6 +695,9 @@ protected:
 
     /**
      * Adds a basic authentication header to the request headers.
+     *
+     * @param username The username to use during the base64 encoding.
+     * @param password The password to use during the base64 encoding.
      */
     void addAuthenticationHeader(string username, string password)
     {
@@ -691,6 +709,8 @@ protected:
 
     /**
      * Fetches a list of (additional) request headers that the user wants set for the request.
+     *
+     * @return An associative array mapping header names to their values.
      */
     string[string] fetchRequestHeaders()
     {
@@ -717,6 +737,8 @@ protected:
 
     /**
      * Sets the request headers in the interface to the specified list.
+     *
+     * @param headers The headers to load.
      */
     void loadRequestHeaders(string[string] headers)
     {
@@ -730,6 +752,8 @@ protected:
 
     /**
      * Creates a new request object with the callback handlers preinstalled but no data attached.
+     *
+     * @return The newly created request.
      */
     Request createRequest()
     {
@@ -742,6 +766,8 @@ protected:
 
     /**
      * Configures a request object with the callback handlers preinstalled but no data attached.
+     *
+     * @param request The request to configure.
      */
     void configureRequest(Request request)
     {
@@ -756,6 +782,8 @@ protected:
 
     /**
      * Creates and sets up a new request object from the values currently set in the interface.
+     *
+     * @return The newly created request.
      */
     Request createRequestFromCurrentState()
     {
@@ -777,6 +805,8 @@ protected:
 
     /**
      * Loads the values of the specified request into the interface.
+     *
+     * @param request The request to load.
      */
     void loadStateFromRequest(Request request)
     {
@@ -838,6 +868,11 @@ protected:
 protected:
     /**
      * Called when a request is deleted from the requests tree view.
+     *
+     * @param tree The tree in which the delete occurred.
+     * @param iter The iterator to the to be deleted node.
+     *
+     * @return Whether or not the event should propagate.
      */
     bool onRequestDeleted(RequestsTree tree, TreeIter iter)
     {
@@ -859,6 +894,11 @@ protected:
 
     /**
      * Called when a previously saved request in the tree view is activated.
+     *
+     * @param tree The tree in which the delete occurred.
+     * @param iter The iterator to the to be deleted node.
+     *
+     * @return Whether or not the event should propagate.
      */
     bool onRequestActivated(RequestsTree tree, TreeIter iter)
     {
@@ -876,6 +916,9 @@ protected:
 protected:
     /**
      * Called when a new header is received.
+     *
+     * @param name  The name of the header.
+     * @param value The value of the header.
      */
     void onReceiveHeader(string name, string value)
     {
@@ -894,6 +937,8 @@ protected:
 
     /**
      * Called when a data is received.
+     *
+     * @param data The data that was received.
      */
     void onReceiveData(immutable(ubyte)[] data)
     {
@@ -904,6 +949,8 @@ protected:
 
     /**
      * Called when progress in the transfer is made.
+     *
+     * @param percentage The percentage of the transfer that has already been completed.
      */
     void onProgress(uint percentage)
     {
