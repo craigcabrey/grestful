@@ -106,7 +106,7 @@ public:
 
 public:
     /**
-     * @copydoc StateAwareInterface
+     * @copydoc StateAwareInterface::loadState()
      */
     void loadState(KeyFile file, string groupName)
     {
@@ -164,7 +164,7 @@ public:
     }
 
     /**
-     * @copydoc StateAwareInterface
+     * @copydoc StateAwareInterface::saveState()
      */
     void saveState(KeyFile file, string groupName)
     {

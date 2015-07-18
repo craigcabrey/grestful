@@ -36,11 +36,21 @@ public:
 public:
     @property
     {
+        /**
+         * Retrieves the data used.
+         *
+         * @return The data used.
+         */
         auto Data()
         {
             return this.data;
         }
 
+        /**
+         * Sets the data to send along.
+         *
+         * @param data The data to use.
+         */
         void Data(immutable(ubyte)[] data)
         {
             this.data = data;
@@ -60,16 +70,31 @@ public:
             return "application/x-www-form-urlencoded";
         }
 
+        /**
+         * Retrieves the progress callback used.
+         *
+         * @return The callback used.
+         */
         auto ProgressCallback()
         {
             return this.progressCallback;
         }
 
+        /**
+         * Sets the progress callback to use.
+         *
+         * @param callback The callback to use.
+         */
         void ProgressCallback(void delegate(uint percentage) callback)
         {
             this.progressCallback = callback;
         }
 
+        /**
+         * Retrieves the finished callback used.
+         *
+         * @return The callback used.
+         */
         auto FinishedCallback()
         {
             return () {
@@ -77,36 +102,71 @@ public:
             };
         }
 
+        /**
+         * Sets the finished callback to use.
+         *
+         * @param callback The callback to use.
+         */
         void FinishedCallback(void delegate() callback)
         {
             this.finishedCallback = callback;
         }
 
+        /**
+         * Retrieves the receive data callback used.
+         *
+         * @return The callback used.
+         */
         auto ReceiveDataCallback()
         {
             return this.receiveDataCallback;
         }
 
+        /**
+         * Sets the receive data callback to use.
+         *
+         * @param callback The callback to use.
+         */
         void ReceiveDataCallback(void delegate(immutable(ubyte)[] data) callback)
         {
             this.receiveDataCallback = callback;
         }
 
+        /**
+         * Retrieves the receive header callback used.
+         *
+         * @return The callback used.
+         */
         auto ReceiveHeaderCallback()
         {
             return this.receiveHeaderCallback;
         }
 
+        /**
+         * Sets the receive header callback to use.
+         *
+         * @param callback The callback to use.
+         */
         void ReceiveHeaderCallback(void delegate(string name, string value) callback)
         {
             this.receiveHeaderCallback = callback;
         }
 
+        /**
+         * Retrieves the headers used.
+         *
+         * @return The headers used.
+         */
         auto Headers()
         {
             return this.headers;
         }
 
+        /**
+         * Sets the headers to use.
+         *
+         * @param headers The headers to use.
+         */
         auto Headers(string[string] headers)
         {
             this.headers = typeof(this.headers).init;
@@ -115,21 +175,41 @@ public:
                 this.headers[header.toLower()] = value;
         }
 
+        /**
+         * Retrieves the URL used.
+         *
+         * @return The URL used.
+         */
         auto Url()
         {
             return this.url;
         }
 
+        /**
+         * Sets the URL to use.
+         *
+         * @param url The URL to use.
+         */
         void Url(string url)
         {
             this.url = url;
         }
 
+        /**
+         * Retrieves the method used.
+         *
+         * @return The method used.
+         */
         auto HttpMethod()
         {
             return this.httpMethod;
         }
 
+        /**
+         * Sets the HTTP method to use.
+         *
+         * @param method The method to use.
+         */
         void HttpMethod(Method method)
         {
             this.httpMethod = method;
@@ -140,6 +220,9 @@ public:
     /**
      * Sends a request in an asynchronous way by putting it in the D taskpool (i.e. this method will immediately return
      * and is non-blocking).
+     *
+     * @param url    The URL to send the request to.
+     * @param method The method to use to perform the request.
      */
     void sendAsync(string url = null, Nullable!Method method = Nullable!Method())
     {
@@ -162,6 +245,9 @@ public:
 
     /**
      * Sends a request (synchronously, i.e. in a blocking way) using the specified settings.
+     *
+     * @param url    The URL to send the request to.
+     * @param method The method to use to perform the request.
      */
     void send(string url = null, Nullable!Method method = Nullable!Method())
     {
@@ -234,6 +320,12 @@ public:
 public:
     /**
      * Returns the correct enum value that matches the specified string name.
+     *
+     * @param name The name of the method.
+     *
+     * @return The method value that has the specified name.
+     *
+     * @throws Exception If there is no method with the specified name.
      */
     static Method getMethodByName(string name)
     {
@@ -249,6 +341,12 @@ public:
 protected:
     /**
      * Retrieves the cURL method equivalent of the specified method.
+     *
+     * @param method The method to map.
+     *
+     * @return The HTTP method matching the specified method.
+     *
+     * @throws Exception If the method can not be mapped.
      */
     HTTP.Method getMappedMethod(Method method)
     {

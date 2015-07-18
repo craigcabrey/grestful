@@ -18,6 +18,9 @@ abstract class Buildable(T = gtk.Widget.Widget)
 public:
     /**
      * Constructor.
+     *
+     * @param builder The builder definition file to load that contains the buildable object.
+     * @param id      The ID of the buildable object (ID of the widget or object in the file).
      */
     this(string filename, string id)
     {
@@ -27,6 +30,9 @@ public:
 
     /**
      * Constructor that initializes the object with an existing builder object.
+     *
+     * @param builder The builder to use that has the definition file containing the buildable object loaded.
+     * @param id      The ID of the buildable object (ID of the widget or object in the file).
      */
     this(gtk.Builder.Builder builder, string id)
     {
@@ -39,6 +45,8 @@ public:
     {
         /**
          * Fetches the builder object.
+         *
+         * @return The builder object.
          */
         gtk.Builder.Builder Builder()
         {
@@ -47,6 +55,8 @@ public:
 
         /**
          * Fetches the main ObjectG at the root of the widget tree described by the GtkBuilder file.
+         *
+         * @return The object.
          */
         T Object()
         {
@@ -55,6 +65,8 @@ public:
 
         /**
          * Fetches the main GtkWidget at the root of the widget tree described by the GtkBuilder file.
+         *
+         * @return The widget.
          */
         T Widget()
         {
@@ -65,6 +77,10 @@ public:
 public:
     /**
      * Fetches the object with the specified ID from the object tree described by the builder file.
+     *
+     * @param id The ID to look for.
+     *
+     * @return The object.
      *
      * @note Objects are cached when they are first retrieved so multiple retrievals is not expensive.
      */
@@ -78,6 +94,10 @@ public:
 
     /**
      * Fetches the widget with the specified ID from the object tree described by the builder file.
+     *
+     * @param id The ID to look for.
+     *
+     * @return The object.
      *
      * @note Objects are cached when they are first retrieved so multiple retrievals is not expensive.
      */

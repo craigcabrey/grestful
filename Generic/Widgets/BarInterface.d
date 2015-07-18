@@ -17,11 +17,15 @@ public:
     {
         /**
          * Indicates whether the bar is currently open or not.
+         *
+         * @return Whether or not it is open.
          */
         bool IsOpen();
 
         /**
          * Returns the widget of the cell that can be added to the edit view.
+         *
+         * @return The widget.
          */
         Widget GtkWidget();
     }

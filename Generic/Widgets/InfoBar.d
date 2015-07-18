@@ -36,9 +36,7 @@ public:
     @property
     {
         /**
-         * {@inheritDoc}
-         *
-         * Realizes functionality from {@see BarInterface}.
+         * @copydoc BarInterface::IsOpen
          */
         bool IsOpen()
         {
@@ -46,9 +44,7 @@ public:
         }
 
         /**
-         * {@inheritDoc}
-         *
-         * Realizes functionality from {@see BarInterface}.
+         * @copydoc BarInterface::GtkWidget
          */
         Widget GtkWidget()
         {
@@ -59,6 +55,9 @@ public:
 public:
     /**
      * Shows a message in the info bar with the specified message and type.
+     *
+     * @param message The message to show.
+     * @param type    The type of message that is to be displayed.
      */
     void showMessage(string message, MessageType type = MessageType.ERROR)
     {
@@ -70,9 +69,7 @@ public:
 
 public:
     /**
-     * {@inheritDoc}
-     *
-     * Realizes functionality from {@see BarInterface}.
+     * @copydoc BarInterface::open
      */
     void open()
     {
@@ -82,9 +79,7 @@ public:
     }
 
     /**
-     * {@inheritDoc}
-     *
-     * Realizes functionality from {@see BarInterface}.
+     * @copydoc BarInterface::close
      */
     void close()
     {
@@ -94,6 +89,9 @@ public:
 private:
     /**
      * Called when one of the action widgets in the infobar was clicked.
+     *
+     * @param responseId The info bar response code (determines what type of action was performed).
+     * @param sender     The sender of the event.
      */
     void onWidgetClicked(int responseId, gtk.InfoBar.InfoBar sender)
     {

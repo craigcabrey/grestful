@@ -20,8 +20,9 @@ mixin template SelectionStorage()
      * Stores the selection using marks (as iterators can become invalidated when text is modified). Nesting calls to
      * this method is not supported.
      *
-     * @param bool leftGravity Whether to use left gravity for the marks or not. If you wish to mimic the cursor, you
-     *                         probably want right gravity.
+     * @param buffer      The buffer to work with.
+     * @param leftGravity Whether to use left gravity for the marks or not. If you wish to mimic the cursor, you
+     *                    probably want right gravity.
      */
     void storeSelection(TextBuffer buffer, bool leftGravity)
     {
@@ -39,6 +40,8 @@ mixin template SelectionStorage()
 
     /**
      * Restores the selection using the previously saved state.
+     *
+     * @param buffer The buffer to work with.
      */
     void restoreSelection(TextBuffer buffer)
     {
@@ -54,6 +57,10 @@ mixin template SelectionStorage()
 
 /**
  * Convenience function that directly returns a TextIter at the location of the mark.
+ *
+ * @param mark The mark to retrieve the iter from.
+ *
+ * @return The iterator.
  */
 TextIter getIter(TextMark mark)
 {
@@ -66,6 +73,10 @@ TextIter getIter(TextMark mark)
 /**
  * Convenience function that indicates if the specified iterator demarcates a line (i.e. it's at the start or end of a
  * line).
+ *
+ * @param iter The iterator to use.
+ *
+ * @return Whether or not the iterator demarcates a line.
  */
 bool demarcatesLine(TextIter iter)
 {

@@ -20,8 +20,13 @@ mixin template ShortcutKeyProvider()
 protected:
     /**
      * The key handler. Install this as soon as your widget is created using addOnKeyPress.
+     *
+     * @param e The raw event.
+     * @param w The sender.
+     *
+     * @return Whether or not the event should propagate.
      */
-    bool onKeyPress(Event e, Widget)
+    bool onKeyPress(Event e, Widget w)
     {
         uint key;
         GdkModifierType modifier;

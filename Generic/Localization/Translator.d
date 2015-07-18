@@ -7,6 +7,10 @@ module Generic.Localization.Translator;
  /**
   * The translation function. Returns the string, translated in the currently active locale.
   *
+  * @param text The text to translate.
+  *
+  * @return The translated text.
+  *
   * @note Does nothing but return the string at the moment, but should still be used so it can be implemented easily in
   *       the future.
   */

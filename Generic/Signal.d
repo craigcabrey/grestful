@@ -19,6 +19,8 @@ public:
 public:
     /**
      * Sends out the signal with the specified parameters.
+     *
+     * @param p The parameters to send along with the signal.
      */
     void send(parameters p)
     {
@@ -41,6 +43,8 @@ public:
 
     /**
      * Adds a new listener to the signal, which must be a delegate with the same parameters as the signal.
+     *
+     * @param callback The callback method to invoke when this signal is sent.
      */
     void listen(callbackType callback)
     {

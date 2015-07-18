@@ -66,6 +66,11 @@ struct EventPropagation
 
 /**
  * Returns the index of the specified element into the specified array, or -1 if it wasn't found.
+ *
+ * @param array The array to search.
+ * @param element The element to search for.
+ *
+ * @return The index of the element, or -1.
  */
 ulong indexOf(T)(T[] array, const T element)
 {
@@ -79,6 +84,12 @@ ulong indexOf(T)(T[] array, const T element)
 
 /**
  * Replaces the specified character 'searchFor' with 'replaceWith' for each occurrence in 'subject'.
+ *
+ * @param subject     The string to replace in.
+ * @param searchFor   The text to search for.
+ * @param replaceWith The replacement string.
+ *
+ * @return A new string with the replacements applied.
  */
 pure string replace(string subject, char searchFor, char replaceWith)
 {
@@ -91,7 +102,10 @@ pure string replace(string subject, char searchFor, char replaceWith)
 }
 
 /**
- * Removes the specified element from the array.
+ * Removes the specified element from the array (once).
+ *
+ * @param array   The array to remove the item from.
+ * @param element The item to look for and remove.
  */
 void remove(T)(ref T[] array, T element)
 {
@@ -101,6 +115,10 @@ void remove(T)(ref T[] array, T element)
 /**
  * Convenience function that returns, but does not remove, the last element of an array (stack). Returns null if the
  * array is empty.
+ *
+ * @param array The array to peek in.
+ *
+ * @return The last element (or null if none).
  */
 Nullable!T peek(T)(T[] array)
 {
@@ -114,6 +132,10 @@ Nullable!T peek(T)(T[] array)
 
 /**
  * Convenience function that removes and returns the last element of an array (stack).
+ *
+ * @param array The array to pop.
+ *
+ * @return The popped element.
  */
 T pop(T)(ref T[] array)
 {
@@ -126,6 +148,10 @@ T pop(T)(ref T[] array)
 
 /**
  * Compatibility function because apparently GDC (5.1) doesn't include std.string.assumeUTF.
+ *
+ * @param data The raw UTF-8 data that is to be casted to an UTF-8 string.
+ *
+ * @return A string containing the data.
  */
 pure string assumeUTF8Compat(immutable(ubyte[]) data)
 {
@@ -140,6 +166,10 @@ pure string assumeUTF8Compat(immutable(ubyte[]) data)
 /**
  * GVariant doesn't allow storing pointer types. This works around that limitation by storing the memory address of the
  * object in the GVariant instead. This should only be used internally as this representation can vary per platform.
+ *
+ * @param o The data to put in a variant.
+ *
+ * @return The variant containing the specified data.
  */
 /*Variant toVariant(T)(ref const T o)
 {
@@ -148,6 +178,10 @@ pure string assumeUTF8Compat(immutable(ubyte[]) data)
 
 /**
  * Retrieves an object of the specified type from the specified variant. See also {@link toVariant}.
+ *
+ * @param v The variant to extract data from.
+ *
+ * @return The data as the requested type.
  */
 /*T getObject(T)(Variant v)
 {
@@ -160,6 +194,10 @@ pure string assumeUTF8Compat(immutable(ubyte[]) data)
  *
  * Usage of this function, especially in delegates, is very important. When cells are merged, tabs are moved from
  * one instance of this class to another, which doesn't update the 'this' instance inside a delegate.
+ *
+ * @param widget The widget of which to search an ancestor.
+ *
+ * @return The first ancestor of the requested type or null.
  */
 T getAncestorOfType(T)(Widget widget)
 {
@@ -222,6 +260,12 @@ auto getStringListDefault(KeyFile file, string groupName, string key, string[] d
 
      U parameters;
 
+     /**
+      * Constructor.
+      *
+      * @param delegateInstance The delegate to invoke.
+      * @param parameters       The parameters to pass to the delegate.
+      */
      public this(S delegateInstance, U parameters)
      {
          this.delegateInstance = delegateInstance;
@@ -233,6 +277,10 @@ auto getStringListDefault(KeyFile file, string groupName, string key, string[] d
   * Callback that will invoke the passed DelegatePointer's delegate when it is called. This very useful method can be
   * used to pass delegates to gdk.Threads.threadsAddIdle instead of having to define a callback with C linkage and a
   * different method for every different action.
+  *
+  * @param data The data that is passed to the method.
+  *
+  * @return Whether or not the method should continue executing.
   */
  extern(C) nothrow static bool invokeDelegatePointerFunc(S)(void* data)
  {
@@ -254,6 +302,9 @@ auto getStringListDefault(KeyFile file, string groupName, string key, string[] d
 /**
  * Convenience method that allows scheduling a delegate to be executed with gdk.Threads.threadsAddIdle instead of a
  * traditional callback with C linkage.
+ *
+ * @param theDelegate The delegate to schedule.
+ * @param parameters  A tuple of parameters to pass to the delegate when it is invoked.
  *
  * @example
  *     auto myMethod = delegate(string name, string value) { do_something_with_name_and_value(); }

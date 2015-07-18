@@ -15,6 +15,8 @@ mixin template Singleton()
     {
         /**
          * Retrieves the sole instance of this class.
+         *
+         * @return The sole instance.
          */
         auto public static Instance()
         {

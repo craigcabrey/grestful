@@ -20,29 +20,54 @@ class State
     mixin Singleton;
 
 public:
-    auto ConfigDirectory()
+    @property
     {
-        return this.configDirectory;
-    }
+        /**
+         * Retrieves the config directory.
+         *
+         * @return The directory.
+         */
+        auto ConfigDirectory()
+        {
+            return this.configDirectory;
+        }
 
-    void ConfigDirectory(string directory)
-    {
-        this.configDirectory = directory;
-    }
+        /**
+         * Sets the config directory.
+         *
+         * @param directory The directory.
+         */
+        void ConfigDirectory(string directory)
+        {
+            this.configDirectory = directory;
+        }
 
-    auto ConfigFile()
-    {
-        return this.configFile;
-    }
+        /**
+         * Retrieves the config file.
+         *
+         * @return The file.
+         */
+        auto ConfigFile()
+        {
+            return this.configFile;
+        }
 
-    void ConfigFile(string file)
-    {
-        this.configFile = file;
+        /**
+         * Sets the config file.
+         *
+         * @param file The file.
+         */
+        void ConfigFile(string file)
+        {
+            this.configFile = file;
+        }
     }
 
 public:
     /**
      * Registers the specified object for changes so that it is notified when changes to the state file occur.
+     *
+     * @param object The object to register.
      */
     void register(StateAwareInterface object)
     {
