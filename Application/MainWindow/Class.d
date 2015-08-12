@@ -478,7 +478,7 @@ protected:
 
             if (username.length > 0)
             {
-                this.addAuthenticationHeader(username, password);
+                this.addBasicAuthenticationHeader(username, password);
                 this.authenticationHeaderPopover.hide();
             }
         });
@@ -694,17 +694,17 @@ protected:
     }
 
     /**
-     * Adds a basic authentication header to the request headers.
+     * Adds the header for basic (base64 encoded) authentication to the request headers.
      *
      * @param username The username to use during the base64 encoding.
      * @param password The password to use during the base64 encoding.
      */
-    void addAuthenticationHeader(string username, string password)
+    void addBasicAuthenticationHeader(string username, string password)
     {
         import std.base64;
         string value = Base64.encode(std.string.representation(username ~ ':' ~ password));
 
-        this.addRequestHeaderRow("Authentication", value);
+        this.addRequestHeaderRow("Authorization", "Basic " ~ value);
     }
 
     /**
