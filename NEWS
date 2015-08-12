@@ -1,5 +1,6 @@
 ===== 1.0.1 (Unreleased)
-  - /
+  - Fixed basic authentication wrongly generating the 'Authentication' header instead of the 'Authorization' header as
+    well as not prefixing 'Basic' to the value.
 
 ===== 1.0.0 (5 July 2015)
   - Initial release.
