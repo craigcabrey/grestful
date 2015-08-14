@@ -1,4 +1,4 @@
-===== 1.0.1 (Unreleased)
+===== 1.1.0 (14 August 2015)
     - Display the HTTP status code in the response pane.
     - Run JSON output through std.json for pretty printing to avoid JSON responses being put on one line because the
       server sent it that way.
