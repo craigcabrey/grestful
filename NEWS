@@ -1,5 +1,7 @@
 ===== 1.0.1 (Unreleased)
     - Display the HTTP status code in the response pane.
+    - Run JSON output through std.json for pretty printing to avoid JSON responses being put on one line because the
+      server sent it that way.
     - Fixed basic authentication wrongly generating the 'Authentication' header instead of the 'Authorization' header as
       well as not prefixing 'Basic' to the value.
 

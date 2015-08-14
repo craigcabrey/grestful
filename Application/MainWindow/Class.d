@@ -981,7 +981,19 @@ protected:
     {
         // log("Request finished");
 
-        this.getWidget!SourceView("outputSourceView").getBuffer().setText(assumeUTF8Compat(this.responseDataBuffer));
+        string output = assumeUTF8Compat(this.responseDataBuffer);
+
+        // Pretty print JSON output. Will fail on other output types, just bail if that's the case.
+        import std.json;
+
+        try {
+            auto jsonValue = parseJSON(output);
+            output = jsonValue.toPrettyString();
+        } catch (JSONException exception) {
+
+        }
+
+        this.getWidget!SourceView("outputSourceView").getBuffer().setText(output);
 
         this.request = null;
         this.responseDataBuffer = null;
