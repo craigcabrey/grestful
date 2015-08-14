@@ -773,10 +773,11 @@ protected:
     {
         with (request)
         {
-            ProgressCallback      = &this.onProgress;
-            FinishedCallback      = &this.onFinished;
-            ReceiveDataCallback   = &this.onReceiveData;
-            ReceiveHeaderCallback = &this.onReceiveHeader;
+            ProgressCallback          = &this.onProgress;
+            FinishedCallback          = &this.onFinished;
+            ReceiveDataCallback       = &this.onReceiveData;
+            ReceiveHeaderCallback     = &this.onReceiveHeader;
+            ReceiveStatusCodeCallback = &this.onReceiveStatusCode;
         }
     }
 
@@ -945,6 +946,18 @@ protected:
         // log("Received output ", textualData);
 
         this.responseDataBuffer ~= data;
+    }
+
+    /**
+     * Called when the HTTP status code is received.
+     *
+     * @param data The data that was received.
+     */
+    void onReceiveStatusCode(uint code)
+    {
+        // log("Received status code ", code);
+
+        this.getWidget!Label("responseStatusCodeLabel").setText(to!string(code));
     }
 
     /**

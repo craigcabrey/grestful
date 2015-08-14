@@ -113,6 +113,26 @@ public:
         }
 
         /**
+         * Retrieves the receive status code callback used.
+         *
+         * @return The callback used.
+         */
+        auto ReceiveStatusCodeCallback()
+        {
+            return this.receiveStatusCodeCallback;
+        }
+
+        /**
+         * Sets the receive status code callback to use.
+         *
+         * @param callback The callback to use.
+         */
+        void ReceiveStatusCodeCallback(void delegate(uint code) callback)
+        {
+            this.receiveStatusCodeCallback = callback;
+        }
+
+        /**
          * Retrieves the receive data callback used.
          *
          * @return The callback used.
@@ -289,6 +309,11 @@ public:
             };
         }
 
+        request.onReceiveStatusLine = (HTTP.StatusLine statusLine) {
+            synchronized if (!this.terminated)
+                this.ReceiveStatusCodeCallback()(statusLine.code);
+        };
+
         request.onReceiveHeader = (in char[] key, in char[] value) {
             synchronized if (!this.terminated)
                 this.ReceiveHeaderCallback()(to!string(key), to!string(value));
@@ -391,6 +416,11 @@ protected:
      * that headers are case insensitive and all converted to lower case before sending them!
      */
     string[string] headers;
+
+    /**
+     * The callback to invoke whenever a status code is received (can de called multiple times!).
+     */
+    void delegate(uint statusCode) receiveStatusCodeCallback;
 
     /**
      * The callback to invoke whenever data is received (can de called multiple times!).
