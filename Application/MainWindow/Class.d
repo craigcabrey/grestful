@@ -296,7 +296,7 @@ protected:
 
         infoBar.addOnResponse((int responseId, InfoBar sender) {
             if (responseId == ResponseType.CLOSE)
-    			sender.hide();
+                sender.hide();
         });
 
         infoBar.showAll(); // NOTE: The widget itself has "no show all" set, so this will not actually show it.
