@@ -951,13 +951,13 @@ protected:
     /**
      * Called when the HTTP status code is received.
      *
-     * @param data The data that was received.
+     * @param code The data that was received.
      */
-    void onReceiveStatusCode(uint code)
+    void onReceiveStatusCode(string code)
     {
         // log("Received status code ", code);
 
-        this.getWidget!Label("responseStatusCodeLabel").setText(to!string(code));
+        this.getWidget!Label("responseStatusCodeLabel").setText(code);
     }
 
     /**

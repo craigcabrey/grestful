@@ -65,24 +65,6 @@ struct EventPropagation
 }
 
 /**
- * Returns the index of the specified element into the specified array, or -1 if it wasn't found.
- *
- * @param array The array to search.
- * @param element The element to search for.
- *
- * @return The index of the element, or -1.
- */
-ulong indexOf(T)(T[] array, const T element)
-{
-    foreach (i, value; array)
-        if (value == element)
-            return i;
-
-    return -1;
-
-}
-
-/**
  * Replaces the specified character 'searchFor' with 'replaceWith' for each occurrence in 'subject'.
  *
  * @param subject     The string to replace in.

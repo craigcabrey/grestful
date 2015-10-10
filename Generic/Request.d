@@ -127,7 +127,7 @@ public:
          *
          * @param callback The callback to use.
          */
-        void ReceiveStatusCodeCallback(void delegate(uint code) callback)
+        void ReceiveStatusCodeCallback(void delegate(string code) callback)
         {
             this.receiveStatusCodeCallback = callback;
         }
@@ -271,52 +271,39 @@ public:
      */
     void send(string url = null, Nullable!Method method = Nullable!Method())
     {
-        auto request = HTTP();
+        auto request = new Curl();
 
         auto requestMethod = method.isNull() ? this.HttpMethod : method.get();
 
-        request.url = url ? url : this.Url;
-        request.method = this.getMappedMethod(requestMethod);
+        etc.c.curl.curl_slist* headerList = null;
 
         foreach (header, value; this.Headers)
-            request.addRequestHeader(header, value);
-
-        if (this.Data.length > 0)
         {
-            size_t bytesSent = 0;
-
-            request.contentLength = this.Data.length;
-            request.onSend = (void[] data) {
-                synchronized if (!this.terminated)
-                {
-                    auto length = data.length;
-                    auto remainingBytes = (this.Data.length - bytesSent);
-
-                    if (length > remainingBytes)
-                        length = remainingBytes;
-
-                    if (length == 0)
-                        return 0;
-
-                    data[0 .. length] = this.Data[bytesSent .. (bytesSent + length)].dup;
-
-                    bytesSent += length;
-
-                    return length;
-                }
-
-                return -1;
-            };
+            auto headerString = header ~ ": " ~ value;
+            headerList = etc.c.curl.curl_slist_append(headerList, cast(char*) headerString.toStringz());
         }
 
-        request.onReceiveStatusLine = (HTTP.StatusLine statusLine) {
-            synchronized if (!this.terminated)
-                this.ReceiveStatusCodeCallback()(statusLine.code);
-        };
+        request.initialize();
+        request.set(CurlOption.url, url ? url : this.Url);
+        request.set(CurlOption.customrequest, this.getMappedMethod(requestMethod));
+        request.set(CurlOption.httpheader, headerList);
 
-        request.onReceiveHeader = (in char[] key, in char[] value) {
+        if (this.Data.length > 0)
+            request.set(CurlOption.postfields, cast(void*) this.Data.ptr);
+
+        request.onReceiveHeader = (in char[] header) {
             synchronized if (!this.terminated)
-                this.ReceiveHeaderCallback()(to!string(key), to!string(value));
+            {
+                auto headerString = to!string(header);
+
+                auto colonPosition = headerString.indexOf(':');
+
+                if (colonPosition >= 0)
+                    this.ReceiveHeaderCallback()(headerString[0 .. colonPosition], headerString[colonPosition + 1 .. $]);
+
+                else if (headerString.length > 0)
+                    this.ReceiveStatusCodeCallback()(headerString);
+            }
         };
 
         request.onReceive = (ubyte[] data) {
@@ -337,6 +324,9 @@ public:
         };
 
         request.perform();
+        request.shutdown();
+
+        etc.c.curl.curl_slist_free_all(headerList);
 
         synchronized if (!this.terminated)
             this.FinishedCallback()();
@@ -369,19 +359,19 @@ protected:
      *
      * @param method The method to map.
      *
-     * @return The HTTP method matching the specified method.
+     * @return string The HTTP method matching the specified method.
      *
      * @throws Exception If the method can not be mapped.
      */
-    HTTP.Method getMappedMethod(Method method)
+    string getMappedMethod(Method method)
     {
         auto map = [
-            Method.GET      : HTTP.Method.get,
-            Method.PUT      : HTTP.Method.put,
-            Method.POST     : HTTP.Method.post,
-            Method.DELETE   : HTTP.Method.del,
-            Method.HEAD     : HTTP.Method.head,
-            Method.OPTIONS  : HTTP.Method.options
+            Method.GET      : "GET",
+            Method.PUT      : "PUT",
+            Method.POST     : "POST",
+            Method.DELETE   : "DELETE",
+            Method.HEAD     : "HEAD",
+            Method.OPTIONS  : "OPTIONS"
         ];
 
         if (method !in map)
@@ -420,7 +410,7 @@ protected:
     /**
      * The callback to invoke whenever a status code is received (can de called multiple times!).
      */
-    void delegate(uint statusCode) receiveStatusCodeCallback;
+    void delegate(string statusCode) receiveStatusCodeCallback;
 
     /**
      * The callback to invoke whenever data is received (can de called multiple times!).
