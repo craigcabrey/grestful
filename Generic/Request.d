@@ -288,6 +288,10 @@ public:
         request.set(CurlOption.customrequest, this.getMappedMethod(requestMethod));
         request.set(CurlOption.httpheader, headerList);
 
+        // Disable these as it's common to test local API's that have self-signed certificates.
+        request.set(CurlOption.ssl_verifyhost, 0);
+        request.set(CurlOption.ssl_verifypeer, 0);
+
         if (this.Data.length > 0)
             request.set(CurlOption.postfields, cast(void*) this.Data.ptr);
 
