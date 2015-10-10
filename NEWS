@@ -1,3 +1,6 @@
+===== 1.1.1 (not released yet)
+    - Fixed not being able to call sites with self-signed certificates due to cURL trying to verify the certificates.
+
 ===== 1.1.0 (14 August 2015)
     - Display the HTTP status code in the response pane.
     - Run JSON output through std.json for pretty printing to avoid JSON responses being put on one line because the
