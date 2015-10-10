@@ -1,0 +1,28 @@
+name "grestful"
+targetType "executable"
+description "A simple RESTful API client written in GTK 3."
+copyright "Copyright © 2015, The grestful team"
+authors "The grestful team"
+license "MPL-2.0"
+
+sourcePaths "./Application/"
+importPaths "./Application/"
+mainSourceFile "Application/Main.d"
+
+dependency "gtk-d:gtkd" version="~>3.1.0"
+dependency "gtk-d:sv"   version="~>3.1.0"
+dependency "grestful:generic" version="1.0.0"
+
+libs "curl"
+dflags ""
+
+subPackage {
+    name "generic"
+    targetType "sourceLibrary"
+    description "Generic components for the main application, split off to increase reusability."
+
+    sourcePaths "./Generic/"
+    importPaths "./Generic/"
+
+    dependency "gtk-d:gtkd" version="~>3.1.0"
+}
