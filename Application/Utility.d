@@ -13,7 +13,7 @@ public import Generic.Utility;
  * A few application-specific constants.
  */
 immutable string APPLICATION_NAME        = "grestful";
-immutable string APPLICATION_VERSION     = "1.1.0";
+immutable string APPLICATION_VERSION     = "1.1.1";
 immutable string APPLICATION_AUTHOR      = "The grestful team";
 immutable string APPLICATION_COPYRIGHT   = "Copyright \xc2\xa9 2015 " ~ APPLICATION_AUTHOR;
 immutable string APPLICATION_ID          = "grestful.grestful";
